@@ -1,0 +1,121 @@
+{% extends "news/base.html" %}
+
+{% block title %}Review Article | Daily Tea{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-9">
+
+            <div class="mb-4">
+
+                <a
+                    href="{% url 'editor_dashboard' %}"
+                    class="btn btn-sm btn-outline-secondary mb-4"
+                >
+                    ← Back to Dashboard
+                </a>
+
+                <span class="badge bg-warning text-dark d-block mb-3"
+                      style="width: fit-content;">
+                    Pending Approval
+                </span>
+
+                <h1 class="display-5 fw-bold">
+                    {{ article.title }}
+                </h1>
+
+                <p class="text-muted">
+
+                    Submitted by
+
+                    <strong>
+                        {{ article.author.get_full_name|default:article.author.username }}
+                    </strong>
+
+                    ·
+
+                    {{ article.created_at|date:"d M Y, H:i" }}
+
+                </p>
+
+                {% if article.publisher %}
+
+                    <p class="text-muted">
+                        Publisher: {{ article.publisher.name }}
+                    </p>
+
+                {% else %}
+
+                    <p class="text-muted">
+                        Independent Journalist
+                    </p>
+
+                {% endif %}
+
+            </div>
+
+            <hr>
+
+            <article class="mt-4">
+
+                {{ article.content|linebreaks }}
+
+            </article>
+
+
+            <!-- APPROVAL ACTION -->
+
+            <div class="card border-0 shadow-sm mt-5">
+
+                <div class="card-body p-4">
+
+                    <h4 class="fw-bold">
+                        Editorial Decision
+                    </h4>
+
+                    <p class="text-muted">
+                        Review the article above before publishing it.
+                    </p>
+
+                    <div class="d-flex gap-2">
+
+                        <form
+                            method="post"
+                            action="{% url 'approve_article' article.pk %}"
+                        >
+
+                            {% csrf_token %}
+
+                            <button
+                                type="submit"
+                                class="btn btn-success"
+                            >
+                                ✓ Approve & Publish
+                            </button>
+
+                        </form>
+
+                        <a
+                            href="{% url 'editor_dashboard' %}"
+                            class="btn btn-outline-secondary"
+                        >
+                            Back
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,109 @@
+{% extends "news/base.html" %}
+
+{% block title %}Articles | Daily Tea{% endblock %}
+
+{% block content %}
+
+<section class="daily-section">
+
+    <div class="container">
+
+        <!-- PAGE HEADER -->
+        <div class="daily-dashboard-header">
+
+            <span class="badge bg-warning text-dark mb-3">
+                DAILY TEA
+            </span>
+
+            <h1>
+                Latest Articles
+            </h1>
+
+            <p class="daily-section-subtitle">
+                Explore the latest stories from Daily Tea journalists.
+            </p>
+
+        </div>
+
+
+        <!-- ARTICLES -->
+        {% if articles %}
+
+            <div class="row g-4">
+
+                {% for article in articles %}
+
+                    <div class="col-md-6 col-lg-4">
+
+                        <article class="daily-card">
+
+                            <div class="card-body">
+
+                                <span class="badge bg-success mb-3">
+                                    News
+                                </span>
+
+                                <h2 class="card-title h4">
+                                    {{ article.title }}
+                                </h2>
+
+                                <p class="article-meta">
+                                    By {{ article.author.username }}
+                                    ·
+                                    {{ article.created_at|date:"d M Y" }}
+                                </p>
+
+                                {% if article.publisher %}
+
+                                    <p class="article-meta">
+                                        Publisher:
+                                        {{ article.publisher.name }}
+                                    </p>
+
+                                {% endif %}
+
+                                <p class="card-text mt-3">
+                                    {{ article.content|truncatewords:35 }}
+                                </p>
+
+                                <a
+                                    href="{% url 'article_detail' article.pk %}"
+                                    class="btn btn-daily mt-2"
+                                >
+                                    Read Article
+                                </a>
+
+                            </div>
+
+                        </article>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <!-- EMPTY STATE -->
+
+            <div class="daily-card text-center p-5">
+
+                <h2 class="article-title">
+                    No articles available
+                </h2>
+
+                <p class="text-muted mb-0">
+                    There are currently no approved articles.
+                    Please check back later.
+                </p>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+{% endblock %}

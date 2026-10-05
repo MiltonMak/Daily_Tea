@@ -1,0 +1,456 @@
+/* =========================================================
+   DAILY TEA - GLOBAL STYLES
+   ========================================================= */
+
+:root {
+    --daily-navy: #102a43;
+    --daily-navy-dark: #0b1f33;
+    --daily-green: #2f855a;
+    --daily-green-dark: #276749;
+    --daily-gold: #d69e2e;
+    --daily-background: #f8fafc;
+    --daily-white: #ffffff;
+    --daily-text: #1a202c;
+    --daily-muted: #718096;
+    --daily-border: #e2e8f0;
+    --daily-success: #38a169;
+    --daily-warning: #d69e2e;
+    --daily-error: #e53e3e;
+}
+
+
+/* =========================================================
+   GLOBAL
+   ========================================================= */
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    background-color: var(--daily-background);
+    color: var(--daily-text);
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+}
+
+img {
+    max-width: 100%;
+}
+
+
+/* =========================================================
+   NAVIGATION
+   ========================================================= */
+
+.daily-navbar {
+    background-color: var(--daily-navy);
+    box-shadow: 0 2px 10px rgba(16, 42, 67, 0.15);
+}
+
+.daily-navbar .navbar-brand {
+    color: var(--daily-white);
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.daily-navbar .navbar-brand:hover {
+    color: var(--daily-gold);
+}
+
+.daily-navbar .nav-link {
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.daily-navbar .nav-link:hover,
+.daily-navbar .nav-link:focus {
+    color: var(--daily-gold);
+}
+
+.daily-navbar .navbar-toggler {
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.daily-hero {
+    padding: 100px 0;
+    background-color: var(--daily-white);
+}
+
+.daily-hero h1 {
+    margin-bottom: 1rem;
+    color: var(--daily-navy);
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 1.15;
+}
+
+.daily-hero p {
+    max-width: 700px;
+    color: var(--daily-muted);
+    font-size: 1.2rem;
+}
+
+
+/* =========================================================
+   SECTION HEADINGS
+   ========================================================= */
+
+.daily-section {
+    padding: 70px 0;
+}
+
+.daily-section-title {
+    margin-bottom: 0.5rem;
+    color: var(--daily-navy);
+    font-weight: 700;
+}
+
+.daily-section-subtitle {
+    color: var(--daily-muted);
+}
+
+
+/* =========================================================
+   ARTICLE CARDS
+   ========================================================= */
+
+.daily-card {
+    height: 100%;
+    overflow: hidden;
+    background-color: var(--daily-white);
+    border: 1px solid var(--daily-border);
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(16, 42, 67, 0.06);
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.daily-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px rgba(16, 42, 67, 0.12);
+}
+
+.daily-card .card-body {
+    padding: 1.5rem;
+}
+
+.daily-card .card-title {
+    color: var(--daily-navy);
+    font-weight: 700;
+}
+
+.daily-card .card-text {
+    color: var(--daily-muted);
+}
+
+
+/* =========================================================
+   ARTICLE CONTENT
+   ========================================================= */
+
+.article-content {
+    color: var(--daily-text);
+    font-size: 1.05rem;
+    line-height: 1.8;
+}
+
+.article-meta {
+    color: var(--daily-muted);
+    font-size: 0.9rem;
+}
+
+.article-title {
+    color: var(--daily-navy);
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+.btn-daily {
+    background-color: var(--daily-green);
+    border: 1px solid var(--daily-green);
+    color: var(--daily-white);
+    font-weight: 600;
+    border-radius: 7px;
+    padding: 0.6rem 1.2rem;
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.btn-daily:hover {
+    background-color: var(--daily-green-dark);
+    border-color: var(--daily-green-dark);
+    color: var(--daily-white);
+    transform: translateY(-1px);
+}
+
+.btn-daily-outline {
+    background-color: transparent;
+    border: 1px solid var(--daily-green);
+    color: var(--daily-green);
+    font-weight: 600;
+    border-radius: 7px;
+    padding: 0.6rem 1.2rem;
+}
+
+.btn-daily-outline:hover {
+    background-color: var(--daily-green);
+    color: var(--daily-white);
+}
+
+
+/* =========================================================
+   FORMS
+   ========================================================= */
+
+.daily-form-card {
+    max-width: 750px;
+    margin: 0 auto;
+    padding: 2rem;
+    background-color: var(--daily-white);
+    border: 1px solid var(--daily-border);
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(16, 42, 67, 0.06);
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--daily-green);
+    box-shadow: 0 0 0 0.2rem rgba(47, 133, 90, 0.15);
+}
+
+
+/* =========================================================
+   STATUS BADGES
+   ========================================================= */
+
+.daily-status-approved {
+    background-color: var(--daily-success);
+    color: var(--daily-white);
+}
+
+.daily-status-pending {
+    background-color: var(--daily-warning);
+    color: var(--daily-text);
+}
+
+.daily-status-rejected {
+    background-color: var(--daily-error);
+    color: var(--daily-white);
+}
+
+
+/* =========================================================
+   DASHBOARD
+   ========================================================= */
+
+.daily-dashboard-header {
+    margin-bottom: 2rem;
+}
+
+.daily-dashboard-header h1 {
+    color: var(--daily-navy);
+    font-weight: 700;
+}
+
+.daily-stat-card {
+    padding: 1.5rem;
+    background-color: var(--daily-white);
+    border: 1px solid var(--daily-border);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(16, 42, 67, 0.05);
+}
+
+.daily-stat-number {
+    color: var(--daily-navy);
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.daily-stat-label {
+    color: var(--daily-muted);
+}
+
+
+/* =========================================================
+   NEWSLETTERS
+   ========================================================= */
+
+.newsletter-card {
+    height: auto;
+    padding: 1.5rem;
+    background-color: var(--daily-white);
+    border-left: 4px solid var(--daily-gold);
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(16, 42, 67, 0.06);
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.newsletter-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(16, 42, 67, 0.1);
+}
+
+.newsletter-card h3 {
+    color: var(--daily-navy);
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   TABLES
+   ========================================================= */
+
+.table {
+    background-color: var(--daily-white);
+}
+
+.table thead {
+    background-color: var(--daily-navy);
+    color: var(--daily-white);
+}
+
+.table tbody tr {
+    transition: background-color 0.15s ease;
+}
+
+.table tbody tr:hover {
+    background-color: #f1f5f9;
+}
+
+
+/* =========================================================
+   ALERTS
+   ========================================================= */
+
+.daily-alert {
+    border: none;
+    border-radius: 8px;
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.daily-footer {
+    margin-top: 80px;
+    padding: 35px 0;
+    background-color: var(--daily-navy);
+    color: var(--daily-white);
+}
+
+.daily-footer p {
+    margin-bottom: 0;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.daily-footer a {
+    color: var(--daily-gold);
+}
+
+.daily-footer a:hover {
+    color: var(--daily-white);
+}
+
+
+/* =========================================================
+   RESPONSIVE DESIGN
+   ========================================================= */
+
+@media (max-width: 768px) {
+    .daily-hero {
+        padding: 60px 0;
+    }
+
+    .daily-hero h1 {
+        font-size: 2.2rem;
+    }
+
+    .daily-hero p {
+        font-size: 1rem;
+    }
+
+    .daily-section {
+        padding: 45px 0;
+    }
+
+    .daily-form-card {
+        padding: 1.25rem;
+    }
+
+    .daily-navbar .navbar-brand {
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .daily-hero h1 {
+        font-size: 1.9rem;
+    }
+
+    .daily-card .card-body {
+        padding: 1.2rem;
+    }
+}
+
+/* =========================================================
+   MOBILE NEWSLETTER DETAIL
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+    .newsletter-card {
+        height: auto;
+        padding: 1.25rem;
+        margin-bottom: 2rem;
+    }
+
+    .newsletter-card h2 {
+        font-size: 1.25rem;
+    }
+
+    .newsletter-card p {
+        font-size: 0.95rem;
+        line-height: 1.6;
+        overflow-wrap: break-word;
+    }
+
+    .daily-card {
+        height: auto;
+    }
+
+    .daily-card .card-body {
+        padding: 1.25rem;
+    }
+
+    .article-title {
+        font-size: 1.8rem;
+        line-height: 1.25;
+    }
+
+    .daily-section {
+        overflow-x: hidden;
+    }
+}

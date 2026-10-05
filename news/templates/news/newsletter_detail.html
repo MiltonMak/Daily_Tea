@@ -1,0 +1,195 @@
+{% extends "news/base.html" %}
+
+{% block title %}
+    {{ newsletter.title }} | Daily Tea
+{% endblock %}
+
+{% block content %}
+
+<section class="daily-section">
+
+    <div class="container">
+
+        <div class="row justify-content-center">
+
+            <div class="col-lg-9">
+
+                <!-- NEWSLETTER HEADER -->
+
+                <div class="mb-4">
+
+                    <span class="badge bg-warning text-dark mb-3">
+                        Newsletter
+                    </span>
+
+                    <h1 class="article-title display-5 mb-3">
+                        {{ newsletter.title }}
+                    </h1>
+
+                    <div class="article-meta">
+
+                        By
+
+                        <strong>
+                            {{ newsletter.author.username }}
+                        </strong>
+
+                        <span class="mx-2">
+                            ·
+                        </span>
+
+                        {{ newsletter.created_at|date:"d M Y" }}
+
+                    </div>
+
+                </div>
+
+
+                <!-- DESCRIPTION -->
+
+                <div class="newsletter-card mb-5">
+
+                    <h2 class="h4 mb-3">
+                        About this newsletter
+                    </h2>
+
+                    <p class="mb-0">
+                        {{ newsletter.description }}
+                    </p>
+
+                </div>
+
+
+                <!-- INCLUDED ARTICLES -->
+
+                <div class="mb-4">
+
+                    <h2 class="daily-section-title">
+                        Included Articles
+                    </h2>
+
+                    <p class="daily-section-subtitle">
+                        Stories included in this Daily Tea newsletter.
+                    </p>
+
+                </div>
+
+
+                {% with articles=newsletter.articles.all %}
+
+                    {% if articles %}
+
+                        <div class="row g-4">
+
+                            {% for article in articles %}
+
+                                <div class="col-md-6">
+
+                                    <article class="daily-card">
+
+                                        <div class="card-body">
+
+                                            <span
+                                                class="badge bg-success mb-3"
+                                            >
+                                                Article
+                                            </span>
+
+                                            <h3 class="card-title h4">
+                                                {{ article.title }}
+                                            </h3>
+
+                                            <p class="article-meta">
+
+                                                By
+                                                {{ article.author.username }}
+
+                                                ·
+
+                                                {{ article.created_at|date:"d M Y" }}
+
+                                            </p>
+
+                                            <p class="card-text mt-3">
+
+                                                {{ article.content|truncatewords:30 }}
+
+                                            </p>
+
+                                            <a
+                                                href="{% url 'article_detail' article.pk %}"
+                                                class="btn btn-daily mt-2"
+                                            >
+                                                Read Article
+                                            </a>
+
+                                        </div>
+
+                                    </article>
+
+                                </div>
+
+                            {% endfor %}
+
+                        </div>
+
+                    {% else %}
+
+                        <div class="daily-card text-center p-5">
+
+                            <h3 class="article-title">
+                                No articles in this newsletter
+                            </h3>
+
+                            <p class="text-muted mb-0">
+                                Articles will appear here when they are added.
+                            </p>
+
+                        </div>
+
+                    {% endif %}
+
+                {% endwith %}
+
+
+                <!-- ACTIONS -->
+
+                <div class="d-flex gap-2 flex-wrap mt-5">
+
+                    <a
+                        href="{% url 'newsletter_list' %}"
+                        class="btn btn-daily-outline"
+                    >
+                        ← Back to Newsletters
+                    </a>
+
+
+                    {% if user.role == "editor" or newsletter.author == user %}
+
+                        <a
+                            href="{% url 'edit_newsletter' newsletter.pk %}"
+                            class="btn btn-daily"
+                        >
+                            Edit Newsletter
+                        </a>
+
+                        <a
+                            href="{% url 'delete_newsletter' newsletter.pk %}"
+                            class="btn btn-outline-danger"
+                        >
+                            Delete Newsletter
+                        </a>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

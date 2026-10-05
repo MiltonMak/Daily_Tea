@@ -1,0 +1,140 @@
+{% extends "news/base.html" %}
+
+{% block title %}{{ page_title }} | Daily Tea{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-8">
+
+            <div class="mb-4">
+
+                <h1 class="fw-bold">
+                    {{ page_title }}
+                </h1>
+
+                <p class="text-muted">
+                    Submit your story to Daily Tea for editorial review.
+                </p>
+
+            </div>
+
+            <div class="card shadow-sm border-0">
+
+                <div class="card-body p-4">
+
+                    <form method="post">
+
+                        {% csrf_token %}
+
+                        {% if form.non_field_errors %}
+                            <div class="alert alert-danger">
+                                {{ form.non_field_errors }}
+                            </div>
+                        {% endif %}
+
+                        <div class="mb-4">
+
+                            <label
+                                for="{{ form.title.id_for_label }}"
+                                class="form-label fw-bold"
+                            >
+                                Article Title
+                            </label>
+
+                            {{ form.title }}
+
+                            {% for error in form.title.errors %}
+                                <div class="text-danger small mt-1">
+                                    {{ error }}
+                                </div>
+                            {% endfor %}
+
+                        </div>
+
+                        <div class="mb-4">
+
+                            <label
+                                for="{{ form.content.id_for_label }}"
+                                class="form-label fw-bold"
+                            >
+                                Article Content
+                            </label>
+
+                            {{ form.content }}
+
+                            {% for error in form.content.errors %}
+                                <div class="text-danger small mt-1">
+                                    {{ error }}
+                                </div>
+                            {% endfor %}
+
+                        </div>
+
+                        <div class="mb-4">
+
+                            <label
+                                for="{{ form.publisher.id_for_label }}"
+                                class="form-label fw-bold"
+                            >
+                                Publisher
+                            </label>
+
+                            {{ form.publisher }}
+
+                            <div class="form-text">
+                                Leave blank if you are publishing as an
+                                independent journalist.
+                            </div>
+
+                            {% for error in form.publisher.errors %}
+                                <div class="text-danger small mt-1">
+                                    {{ error }}
+                                </div>
+                            {% endfor %}
+
+                        </div>
+
+                        <div class="alert alert-info">
+
+                            <strong>Important:</strong>
+
+                            Your article will be submitted for editorial
+                            approval before it becomes publicly available.
+
+                        </div>
+
+                        <div class="d-flex gap-2">
+
+                            <button
+                                type="submit"
+                                class="btn btn-success"
+                            >
+                                {{ button_text }}
+                            </button>
+
+                            <a
+                                href="{% url 'my_articles' %}"
+                                class="btn btn-outline-secondary"
+                            >
+                                Cancel
+                            </a>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,262 @@
+{% extends "news/base.html" %}
+
+{% block title %}My Articles | Daily Tea{% endblock %}
+
+{% block content %}
+
+<section class="daily-section">
+
+    <div class="container">
+
+        <!-- HEADER -->
+        <div class="d-flex justify-content-between align-items-start
+                    flex-wrap gap-3 mb-4">
+
+            <div>
+
+                <span class="badge bg-warning text-dark mb-3">
+                    JOURNALIST
+                </span>
+
+                <h1 class="daily-section-title">
+                    My Articles
+                </h1>
+
+                <p class="daily-section-subtitle">
+                    Manage the stories you have submitted to Daily Tea.
+                </p>
+
+            </div>
+
+            <div>
+
+                <a
+                    href="{% url 'create_article' %}"
+                    class="btn btn-daily"
+                >
+                    + Create Article
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- STATISTICS -->
+        <div class="row g-4 mb-5">
+
+            <div class="col-md-4">
+
+                <div class="daily-stat-card">
+
+                    <div class="daily-stat-number">
+                        {{ total_articles }}
+                    </div>
+
+                    <div class="daily-stat-label">
+                        Total Articles
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <div class="daily-stat-card">
+
+                    <div class="daily-stat-number">
+                        {{ approved_articles }}
+                    </div>
+
+                    <div class="daily-stat-label">
+                        Approved Articles
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <div class="daily-stat-card">
+
+                    <div class="daily-stat-number">
+                        {{ pending_articles }}
+                    </div>
+
+                    <div class="daily-stat-label">
+                        Pending Review
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ARTICLES -->
+        <div class="mb-4">
+
+            <h2 class="daily-section-title">
+                Your Articles
+            </h2>
+
+            <p class="daily-section-subtitle">
+                Review and manage your submitted stories.
+            </p>
+
+        </div>
+
+
+        {% if articles %}
+
+            <div class="table-responsive">
+
+                <table class="table table-hover align-middle">
+
+                    <thead>
+
+                        <tr>
+                            <th>Article</th>
+                            <th>Status</th>
+                            <th>Created</th>
+                            <th class="text-end">Actions</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        {% for article in articles %}
+
+                            <tr>
+
+                                <td>
+
+                                    <strong>
+                                        {{ article.title }}
+                                    </strong>
+
+                                    {% if article.publisher %}
+
+                                        <div class="article-meta">
+                                            {{ article.publisher.name }}
+                                        </div>
+
+                                    {% endif %}
+
+                                </td>
+
+
+                                <td>
+
+                                    {% if article.approved %}
+                                        <span
+                                            class="badge daily-status-approved"
+                                        >
+                                            Published
+                                        </span>
+                                    {% elif article.publisher %}
+                                        <span
+                                            class="badge daily-status-pending"
+                                        >
+                                            Pending Editor Review
+                                        </span>
+                                    {% else %}
+                                        <span
+                                            class="badge bg-warning text-dark"
+                                        >
+                                            Ready to Publish
+                                        </span>
+                                    {% endif %}
+
+                                </td>
+
+
+                                <td>
+                                    {{ article.created_at|date:"d M Y" }}
+                                </td>
+
+
+                                <td class="text-end">
+
+                                {% if article.approved %}
+                                    <a
+                                        href="{% url 'article_detail' article.pk %}"
+                                        class="btn btn-sm btn-daily-outline"
+                                    >
+                                        View
+                                    </a>
+                                {% elif not article.publisher %}
+                                    <a
+                                        href="{% url 'publish_independent_article' article.pk %}"
+                                        class="btn btn-sm btn-daily"
+                                    >
+                                        Publish Article
+                                    </a>
+                                {% endif %}
+
+                                <a
+                                    href="{% url 'edit_article' article.pk %}"
+                                    class="btn btn-sm btn-outline-primary"
+                                >
+                                    Edit
+                                </a>
+
+                                <a
+                                    href="{% url 'delete_article' article.pk %}"
+                                    class="btn btn-sm btn-outline-danger"
+                                >
+                                    Delete
+                                </a>
+
+                                </td>
+
+                            </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        {% else %}
+
+            <!-- EMPTY STATE -->
+
+            <div class="daily-card text-center p-5">
+
+                <span class="badge bg-warning text-dark mb-3">
+                    JOURNALIST
+                </span>
+
+                <h2 class="article-title">
+                    You haven't created any articles yet.
+                </h2>
+
+                <p class="text-muted mb-4">
+                    Start writing your first Daily Tea story.
+                </p>
+
+                <a
+                    href="{% url 'create_article' %}"
+                    class="btn btn-daily"
+                >
+                    Create Your First Article
+                </a>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+{% endblock %}

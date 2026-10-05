@@ -1,0 +1,276 @@
+{% extends "news/base.html" %}
+
+{% block title %}Editor Dashboard | Daily Tea{% endblock %}
+
+{% block content %}
+
+<section class="daily-section">
+
+    <div class="container">
+
+        <!-- HEADER -->
+
+        <div class="d-flex justify-content-between align-items-start
+                    flex-wrap gap-3 mb-5">
+
+            <div>
+
+                <span class="badge bg-warning text-dark mb-3">
+                    EDITOR
+                </span>
+
+                <h1 class="daily-section-title">
+                    Editor Dashboard
+                </h1>
+
+                <p class="daily-section-subtitle">
+                    Review, approve and manage Daily Tea articles.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- PENDING ARTICLES -->
+
+        <div class="mb-4">
+
+            <h2 class="daily-section-title">
+                Articles Pending Review
+            </h2>
+
+            <p class="daily-section-subtitle">
+                Review submitted articles before they are published.
+            </p>
+
+        </div>
+
+
+        {% if pending_articles %}
+
+            <div class="row g-4 mb-5">
+
+                {% for article in pending_articles %}
+
+                    <div class="col-md-6 col-lg-4">
+
+                        <article class="daily-card">
+
+                            <div class="card-body">
+
+                                <span
+                                    class="badge daily-status-pending mb-3"
+                                >
+                                    Pending Review
+                                </span>
+
+                                <h3 class="card-title h4">
+                                    {{ article.title }}
+                                </h3>
+
+                                <p class="article-meta">
+
+                                    By
+                                    <strong>
+                                        {{ article.author.username }}
+                                    </strong>
+
+                                    ·
+
+                                    {{ article.created_at|date:"d M Y" }}
+
+                                </p>
+
+                                {% if article.publisher %}
+
+                                    <p class="article-meta">
+                                        Publisher:
+                                        {{ article.publisher.name }}
+                                    </p>
+
+                                {% endif %}
+
+                                <p class="card-text mt-3">
+
+                                    {{ article.content|truncatewords:30 }}
+
+                                </p>
+
+                                <div class="d-flex gap-2 flex-wrap mt-3">
+
+                                    <a
+                                        href="{% url 'review_article' article.pk %}"
+                                        class="btn btn-daily"
+                                    >
+                                        Review
+                                    </a>
+
+                                    <a
+                                        href="{% url 'editor_edit_article' article.pk %}"
+                                        class="btn btn-daily-outline"
+                                    >
+                                        Edit
+                                    </a>
+
+                                    <a
+                                        href="{% url 'editor_delete_article' article.pk %}"
+                                        class="btn btn-outline-danger"
+                                    >
+                                        Delete
+                                    </a>
+
+                                </div>
+
+                            </div>
+
+                        </article>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <div class="daily-card text-center p-5 mb-5">
+
+                <span class="badge bg-success mb-3">
+                    ALL CLEAR
+                </span>
+
+                <h3 class="article-title">
+                    No articles are waiting for review.
+                </h3>
+
+                <p class="text-muted mb-0">
+                    New journalist submissions will appear here.
+                </p>
+
+            </div>
+
+        {% endif %}
+
+
+        <!-- APPROVED ARTICLES -->
+
+        <div class="mb-4">
+
+            <h2 class="daily-section-title">
+                Published Articles
+            </h2>
+
+            <p class="daily-section-subtitle">
+                Manage articles that have already been approved.
+            </p>
+
+        </div>
+
+
+        {% if approved_articles %}
+
+            <div class="row g-4">
+
+                {% for article in approved_articles %}
+
+                    <div class="col-md-6 col-lg-4">
+
+                        <article class="daily-card">
+
+                            <div class="card-body">
+
+                                <span
+                                    class="badge daily-status-approved mb-3"
+                                >
+                                    Approved
+                                </span>
+
+                                <h3 class="card-title h4">
+                                    {{ article.title }}
+                                </h3>
+
+                                <p class="article-meta">
+
+                                    By
+                                    <strong>
+                                        {{ article.author.username }}
+                                    </strong>
+
+                                    ·
+
+                                    {{ article.created_at|date:"d M Y" }}
+
+                                </p>
+
+                                {% if article.publisher %}
+
+                                    <p class="article-meta">
+                                        Publisher:
+                                        {{ article.publisher.name }}
+                                    </p>
+
+                                {% endif %}
+
+                                <p class="card-text mt-3">
+
+                                    {{ article.content|truncatewords:30 }}
+
+                                </p>
+
+                                <div class="d-flex gap-2 flex-wrap mt-3">
+
+                                    <a
+                                        href="{% url 'article_detail' article.pk %}"
+                                        class="btn btn-daily"
+                                    >
+                                        View
+                                    </a>
+
+                                    <a
+                                        href="{% url 'editor_edit_article' article.pk %}"
+                                        class="btn btn-daily-outline"
+                                    >
+                                        Edit
+                                    </a>
+
+                                    <a
+                                        href="{% url 'editor_delete_article' article.pk %}"
+                                        class="btn btn-outline-danger"
+                                    >
+                                        Delete
+                                    </a>
+
+                                </div>
+
+                            </div>
+
+                        </article>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <div class="daily-card text-center p-5">
+
+                <h3 class="article-title">
+                    No approved articles yet.
+                </h3>
+
+                <p class="text-muted mb-0">
+                    Approved articles will appear here.
+                </p>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+{% endblock %}

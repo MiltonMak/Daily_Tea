@@ -1,0 +1,170 @@
+{% extends "news/base.html" %}
+
+{% block title %}My Subscriptions | Daily Tea{% endblock %}
+
+{% block content %}
+
+<section class="py-5">
+    <div class="container">
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="alert"
+                        aria-label="Close"
+                    ></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <!-- PAGE HEADER -->
+        <div class="mb-5">
+            <h1 class="fw-bold">My Subscriptions</h1>
+            <p class="text-muted">
+                Choose the publishers and journalists you want to follow.
+                Their approved articles will appear in your subscribed feed.
+            </p>
+        </div>
+
+        <form method="post">
+            {% csrf_token %}
+
+            {% if form.non_field_errors %}
+                <div class="alert alert-danger">
+                    {{ form.non_field_errors }}
+                </div>
+            {% endif %}
+
+            <div class="row g-4">
+
+                <!-- PUBLISHERS -->
+                <div class="col-lg-6">
+                    <div class="card shadow-sm border-0 h-100">
+
+                        <div class="card-body p-4">
+
+                            <h3 class="fw-bold mb-2">
+                                Publishers
+                            </h3>
+
+                            <p class="text-muted small mb-4">
+                                Subscribe to publishers to follow articles
+                                from their news organisations.
+                            </p>
+
+                            {% if form.subscribed_publishers.field.queryset %}
+                                <div class="subscription-list">
+
+                                    {% for checkbox in form.subscribed_publishers %}
+                                        <div class="form-check mb-3">
+                                            {{ checkbox.tag }}
+
+                                            <label
+                                                class="form-check-label"
+                                                for="{{ checkbox.id_for_label }}"
+                                            >
+                                                {{ checkbox.choice_label }}
+                                            </label>
+                                        </div>
+                                    {% endfor %}
+
+                                </div>
+                            {% else %}
+                                <p class="text-muted">
+                                    No publishers are currently available.
+                                </p>
+                            {% endif %}
+
+                            {% if form.subscribed_publishers.errors %}
+                                <div class="text-danger small mt-2">
+                                    {{ form.subscribed_publishers.errors }}
+                                </div>
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <!-- JOURNALISTS -->
+                <div class="col-lg-6">
+                    <div class="card shadow-sm border-0 h-100">
+
+                        <div class="card-body p-4">
+
+                            <h3 class="fw-bold mb-2">
+                                Journalists
+                            </h3>
+
+                            <p class="text-muted small mb-4">
+                                Subscribe directly to journalists whose
+                                articles you want to follow.
+                            </p>
+
+                            {% if form.subscribed_journalists.field.queryset %}
+                                <div class="subscription-list">
+
+                                    {% for checkbox in form.subscribed_journalists %}
+                                        <div class="form-check mb-3">
+                                            {{ checkbox.tag }}
+
+                                            <label
+                                                class="form-check-label"
+                                                for="{{ checkbox.id_for_label }}"
+                                            >
+                                                {{ checkbox.choice_label }}
+                                            </label>
+                                        </div>
+                                    {% endfor %}
+
+                                </div>
+                            {% else %}
+                                <p class="text-muted">
+                                    No journalists are currently available.
+                                </p>
+                            {% endif %}
+
+                            {% if form.subscribed_journalists.errors %}
+                                <div class="text-danger small mt-2">
+                                    {{ form.subscribed_journalists.errors }}
+                                </div>
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- SAVE BUTTON -->
+            <div class="mt-4 d-flex gap-2">
+
+                <button
+                    type="submit"
+                    class="btn btn-warning px-4"
+                >
+                    Save Subscriptions
+                </button>
+
+                <a
+                    href="{% url 'home' %}"
+                    class="btn btn-outline-secondary px-4"
+                >
+                    Back to News Feed
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+</section>
+
+{% endblock %}

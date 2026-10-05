@@ -1,0 +1,122 @@
+{% extends "news/base.html" %}
+
+{% block title %}Publishers | Daily Tea{% endblock %}
+
+{% block content %}
+
+<section class="py-5">
+    <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h1 class="fw-bold mb-1">Publishers</h1>
+                <p class="text-muted mb-0">
+                    Manage publishers, editors and journalists.
+                </p>
+            </div>
+
+            <a href="{% url 'create_publisher' %}" class="btn btn-warning">
+                + Create Publisher
+            </a>
+        </div>
+
+        {% if publishers %}
+
+            <div class="row g-4">
+
+                {% for publisher in publishers %}
+
+                    <div class="col-md-6 col-lg-4">
+
+                        <div class="card h-100 shadow-sm border-0">
+
+                            <div class="card-body">
+
+                                <h4 class="card-title fw-bold">
+                                    {{ publisher.name }}
+                                </h4>
+
+                                {% if publisher.description %}
+                                    <p class="text-muted">
+                                        {{ publisher.description }}
+                                    </p>
+                                {% else %}
+                                    <p class="text-muted">
+                                        No description provided.
+                                    </p>
+                                {% endif %}
+
+                                <hr>
+
+                                <h6 class="fw-bold">
+                                    Editors
+                                </h6>
+
+                                <ul class="small">
+                                    {% for editor in publisher.editors.all %}
+                                        <li>
+                                            {{ editor.get_full_name|default:editor.username }}
+                                        </li>
+                                    {% empty %}
+                                        <li>No editors assigned.</li>
+                                    {% endfor %}
+                                </ul>
+
+                                <h6 class="fw-bold mt-3">
+                                    Journalists
+                                </h6>
+
+                                <ul class="small">
+                                    {% for journalist in publisher.journalists.all %}
+                                        <li>
+                                            {{ journalist.get_full_name|default:journalist.username }}
+                                        </li>
+                                    {% empty %}
+                                        <li>No journalists assigned.</li>
+                                    {% endfor %}
+                                </ul>
+
+                            </div>
+
+                            <div class="card-footer bg-white border-0 pb-3">
+                                <a
+                                    href="{% url 'manage_publisher' publisher.pk %}"
+                                    class="btn btn-outline-dark w-100"
+                                >
+                                    Manage Publisher
+                                </a>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <div class="text-center py-5">
+
+                <h3>No publishers yet</h3>
+
+                <p class="text-muted">
+                    Create your first publisher and assign its staff.
+                </p>
+
+                <a
+                    href="{% url 'create_publisher' %}"
+                    class="btn btn-warning"
+                >
+                    Create Publisher
+                </a>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+</section>
+
+{% endblock %}
