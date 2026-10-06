@@ -1,0 +1,42 @@
+services:
+  db:
+    image: mysql:8.4
+    container_name: daily_tea_db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: daily_tea
+      MYSQL_USER: daily_tea_user
+      MYSQL_PASSWORD: daily_tea_password
+      MYSQL_ROOT_PASSWORD: daily_tea_root_password
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-pdaily_tea_root_password"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+
+  web:
+    build: .
+    container_name: daily_tea_web
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8000:8000"
+    environment:
+      SECRET_KEY: docker-development-secret-key
+      DAILY_TEA_INTERNAL_API_KEY: docker-development-api-key
+      DB_NAME: daily_tea
+      DB_USER: daily_tea_user
+      DB_PASSWORD: daily_tea_password
+      DB_HOST: db
+      DB_PORT: 3306
+    command: >
+      sh -c "python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8000"
+
+volumes:
+  mysql_data:
