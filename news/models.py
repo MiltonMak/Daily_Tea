@@ -1,3 +1,4 @@
+"""Database models for the Daily Tea news application."""
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
@@ -30,6 +31,8 @@ class Publisher(models.Model):
 
 
 class User(AbstractUser):
+    """Represents a Daily Tea user and their assigned role."""
+
     ROLE_CHOICES = [
         ("reader", "Reader"),
         ("journalist", "Journalist"),
