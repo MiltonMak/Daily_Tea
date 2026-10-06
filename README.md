@@ -4,7 +4,10 @@
 
 Daily Tea is a Django-based news application that allows readers to access approved news articles and newsletters, while journalists and editors manage news content through role-based permissions.
 
-The project includes publisher management, reader subscriptions, an editor-controlled article approval workflow, independent journalist publishing, a REST API, token authentication, subscriber notifications, automated testing, and MariaDB database integration.
+The project includes publisher management, reader subscriptions, an
+editor-controlled article approval workflow, independent journalist
+publishing, a REST API, token authentication, subscriber notifications,
+automated testing, and MySQL-compatible database integration.
 
 ---
 
@@ -173,16 +176,19 @@ GET	/api/newsletters/<id>/	Retrieve a single newsletter
 
 The API applies role-based permissions to article creation, editing, deletion and approval.
 
-Technology Stack
+## Technology Stack
+
 Python
 Django
 Django REST Framework
-MariaDB
+MariaDB/ MySQL
 HTML
 CSS
 Bootstrap
 Django Templates
-Installation
+
+## Installation
+
 1. Get the project
 
 Clone or download the project repository and navigate to the Daily_Tea directory.
@@ -205,14 +211,16 @@ Activate the virtual environment:
 If Command Prompt is being used instead:
 
 venv\Scripts\activate
+
 3. Install the required packages
 
 Install the project dependencies:
 
 pip install -r requirements.txt
+
 4. Configure environment variables
 
-The project uses environment variables for the Django secret key, MariaDB connection and internal API authentication.
+The project uses environment variables for the Django secret key, database connection and internal API authentication.
 
 Create a .env file in the root of the Daily_Tea project.
 
@@ -225,7 +233,6 @@ DB_PASSWORD=your-database-password
 DB_HOST=127.0.0.1
 DB_PORT=3306
 DAILY_TEA_INTERNAL_API_KEY=your-internal-api-key
-SECRET_KEY
 
 Generate a secure Django secret key and place it in the SECRET_KEY variable.
 
@@ -309,7 +316,71 @@ python manage.py runserver
 Open the development server in a browser:
 
 http://127.0.0.1:8000/
-Environment Variables
+
+## Docker
+
+Daily Tea can also be run using Docker Compose. The Docker configuration
+starts both the Django application and a MySQL 8.4 database container.
+
+### Build the Docker image
+
+```bash
+docker compose build
+```
+
+### Start the application
+
+```bash
+docker compose up
+```
+
+The application will be available at:
+
+```text
+http://localhost:8000/
+```
+
+### Stop the containers
+
+```bash
+docker compose down
+```
+
+The MySQL database data is stored in a Docker volume so that it persists
+between container restarts.
+
+## Documentation
+
+The project includes Sphinx documentation for the main Daily Tea Python
+modules.
+
+The documentation source files are stored in:
+
+```text
+docs/
+```
+
+The generated HTML documentation is stored in:
+
+```text
+docs/_build/
+```
+
+The main documentation page is:
+
+```text
+docs/_build/index.html
+```
+
+The Sphinx documentation uses the following extensions:
+
+- `sphinx.ext.autodoc`
+- `sphinx.ext.viewcode`
+- `sphinx.ext.napoleon`
+
+The documentation uses the Read the Docs theme.
+
+## Environment Variables
 
 The following environment variables are required:
 
@@ -324,7 +395,8 @@ DAILY_TEA_INTERNAL_API_KEY	Authentication for the internal API request
 
 Never commit the actual .env file or production secrets to the repository.
 
-Project Structure
+## Project Structure
+
 Daily_Tea/
 │
 ├── daily_tea/
@@ -344,11 +416,16 @@ Daily_Tea/
 │   ├── urls.py
 │   └── views.py
 │
+├── docs/
+├── Dockerfile
+├── docker-compose.yml
+├── .dockerignore
 ├── manage.py
 ├── requirements.txt
 ├── .env.example
 └── README.md
-Testing
+
+## Testing
 
 The application includes automated tests for:
 
@@ -373,7 +450,8 @@ Internal API integration
 Run all tests with:
 
 python manage.py test
-Security
+
+## Security
 
 Sensitive configuration values are stored using environment variables.
 
