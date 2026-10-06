@@ -1,3 +1,5 @@
+"""REST API views for the Daily Tea news application."""
+
 from django.db.models import Q
 
 from rest_framework import status
