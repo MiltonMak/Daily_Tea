@@ -4,10 +4,7 @@
 
 Daily Tea is a Django-based news application that allows readers to access approved news articles and newsletters, while journalists and editors manage news content through role-based permissions.
 
-The project includes publisher management, reader subscriptions, an
-editor-controlled article approval workflow, independent journalist
-publishing, a REST API, token authentication, subscriber notifications,
-automated testing, and MySQL-compatible database integration.
+The project includes publisher management, reader subscriptions, an editor-controlled article approval  workflow, independent journalist publishing, a REST API, token authentication, subscriber notifications, automated testing, and MySQL-compatible database integration.
 
 ---
 
@@ -156,76 +153,90 @@ Token authentication is available through:
 
 ```text
 /api/token/
+```
 
-Article endpoints:
+### Article endpoints
 
-Method	Endpoint	Purpose
-GET	/api/approved/	Retrieve approved articles
-GET	/api/articles/	Retrieve approved articles
-GET	/api/articles/subscribed/	Retrieve approved articles matching reader subscriptions
-GET	/api/articles/<id>/	Retrieve a single article
-POST	/api/articles/	Create an article
-PUT	/api/articles/<id>/	Update an article
-DELETE	/api/articles/<id>/	Delete an article
+| Method | Endpoint | Purpose |
+|---|---|---|
+| GET | `/api/approved/` | Retrieve approved articles |
+| GET | `/api/articles/` | Retrieve approved articles |
+| GET | `/api/articles/subscribed/` | Retrieve approved articles matching reader subscriptions |
+| GET | `/api/articles/<id>/` | Retrieve a single article |
+| POST | `/api/articles/` | Create an article |
+| PUT | `/api/articles/<id>/` | Update an article |
+| DELETE | `/api/articles/<id>/` | Delete an article |
 
-Newsletter endpoints:
+### Newsletter endpoints
 
-Method	Endpoint	Purpose
-GET	/api/newsletters/	Retrieve newsletters
-GET	/api/newsletters/<id>/	Retrieve a single newsletter
+| Method | Endpoint | Purpose |
+|---|---|---|
+| GET | `/api/newsletters/` | Retrieve newsletters |
+| GET | `/api/newsletters/<id>/` | Retrieve a single newsletter |
 
 The API applies role-based permissions to article creation, editing, deletion and approval.
 
 ## Technology Stack
 
-Python
-Django
-Django REST Framework
-MariaDB/ MySQL
-HTML
-CSS
-Bootstrap
-Django Templates
+- Python
+- Django
+- Django REST Framework
+- MariaDB / MySQL
+- HTML
+- CSS
+- Bootstrap
+- Django Templates
 
 ## Installation
 
-1. Get the project
+### 1. Get the project
 
-Clone or download the project repository and navigate to the Daily_Tea directory.
+Clone or download the project repository and navigate to the `Daily_Tea` directory.
 
+```bash
 git clone <repository-url>
 cd Daily_Tea
+```
 
-If the repository has already been downloaded, open a terminal in the Daily_Tea directory.
+If the repository has already been downloaded, open a terminal in the `Daily_Tea` directory.
 
-2. Create a virtual environment
+### 2. Create a virtual environment
 
 Windows:
 
+```powershell
 python -m venv venv
+```
 
 Activate the virtual environment:
 
+```powershell
 .\venv\Scripts\Activate.ps1
+```
 
 If Command Prompt is being used instead:
 
+```bat
 venv\Scripts\activate
+```
 
-3. Install the required packages
+### 3. Install the required packages
 
 Install the project dependencies:
 
+```bash
 pip install -r requirements.txt
+```
 
-4. Configure environment variables
+### 4. Configure environment variables
 
 The project uses environment variables for the Django secret key, database connection and internal API authentication.
 
-Create a .env file in the root of the Daily_Tea project.
+Create a `.env` file in the root of the `Daily_Tea` project.
 
-The .env file should contain:
+The `.env` file should contain:
 
+```text
 SECRET_KEY=your-secret-key
 DB_NAME=daily_tea
 DB_USER=daily_tea_user
@@ -233,94 +244,113 @@ DB_PASSWORD=your-database-password
 DB_HOST=127.0.0.1
 DB_PORT=3306
 DAILY_TEA_INTERNAL_API_KEY=your-internal-api-key
+```
 
-Generate a secure Django secret key and place it in the SECRET_KEY variable.
+Generate a secure Django secret key and place it in the `SECRET_KEY` variable.
 
-Do not use the example value your-secret-key.
+Do not use the example value `your-secret-key`.
 
 The real secret key should not be committed to GitHub.
 
-DAILY_TEA_INTERNAL_API_KEY
-
-Create a secure random value for the internal API key and place it in:
-
-DAILY_TEA_INTERNAL_API_KEY
+Create a secure random value for the internal API key and place it in `DAILY_TEA_INTERNAL_API_KEY`.
 
 This key is used to authenticate the application's internal API request made after an article is approved or published.
 
 Do not commit the real API key to GitHub.
 
-The repository should only contain .env.example with placeholder values.
+The repository should only contain `.env.example` with placeholder values.
 
-5. Create the MariaDB database
+### 5. Create the MariaDB database
 
 Make sure MariaDB is installed and running.
 
 Create the database:
 
+```sql
 CREATE DATABASE daily_tea;
+```
 
 Create a database user:
 
+```sql
 CREATE USER 'daily_tea_user'@'localhost' IDENTIFIED BY 'your-database-password';
+```
 
 Grant the required permissions:
 
+```sql
 GRANT ALL PRIVILEGES ON daily_tea.* TO 'daily_tea_user'@'localhost';
+```
 
 Apply the privileges:
 
+```sql
 FLUSH PRIVILEGES;
+```
 
-The database credentials should match the values in .env.
+The database credentials should match the values in `.env`.
 
-6. Apply database migrations
+### 6. Apply database migrations
 
 Run:
 
+```bash
 python manage.py migrate
+```
 
 This creates the database tables required by Django and the Daily Tea application.
 
-7. Create a superuser
+### 7. Create a superuser
 
 Create an administrator account:
 
+```bash
 python manage.py createsuperuser
+```
 
 Follow the prompts to enter the username, email address and password.
 
-8. Run the Django system check
+### 8. Run the Django system check
 
 Run:
 
+```bash
 python manage.py check
+```
 
 The project should report:
 
+```text
 System check identified no issues (0 silenced).
-9. Run the automated tests
+```
+
+### 9. Run the automated tests
 
 Run the complete test suite:
 
+```bash
 python manage.py test
+```
 
 The project includes automated tests covering registration, permissions, article workflows, publisher functionality, subscriptions, REST API functionality and approval/publishing behaviour.
 
-10. Start the development server
+### 10. Start the development server
 
 Run:
 
+```bash
 python manage.py runserver
+```
 
 Open the development server in a browser:
 
+```text
 http://127.0.0.1:8000/
+```
 
 ## Docker
 
-Daily Tea can also be run using Docker Compose. The Docker configuration
-starts both the Django application and a MySQL 8.4 database container.
+Daily Tea can also be run using Docker Compose. The Docker configuration starts both the Django application and a MySQL 8.4 database container.
 
 ### Build the Docker image
 
@@ -346,13 +376,11 @@ http://localhost:8000/
 docker compose down
 ```
 
-The MySQL database data is stored in a Docker volume so that it persists
-between container restarts.
+The MySQL database data is stored in a Docker volume so that it persists between container restarts.
 
 ## Documentation
 
-The project includes Sphinx documentation for the main Daily Tea Python
-modules.
+The project includes Sphinx documentation for the main Daily Tea Python modules.
 
 The documentation source files are stored in:
 
@@ -384,19 +412,21 @@ The documentation uses the Read the Docs theme.
 
 The following environment variables are required:
 
-Variable	Purpose
-SECRET_KEY	Django application security
-DB_NAME	MariaDB database name
-DB_USER	MariaDB database username
-DB_PASSWORD	MariaDB database password
-DB_HOST	MariaDB host
-DB_PORT	MariaDB port
-DAILY_TEA_INTERNAL_API_KEY	Authentication for the internal API request
+| Variable | Purpose |
+|---|---|
+| `SECRET_KEY` | Django application security |
+| `DB_NAME` | MariaDB / MySQL database name |
+| `DB_USER` | MariaDB / MySQL database username |
+| `DB_PASSWORD` | MariaDB / MySQL database password |
+| `DB_HOST` | MariaDB / MySQL host |
+| `DB_PORT` | MariaDB / MySQL port |
+| `DAILY_TEA_INTERNAL_API_KEY` | Authentication for the internal API request |
 
-Never commit the actual .env file or production secrets to the repository.
+Never commit the actual `.env` file or production secrets to the repository.
 
 ## Project Structure
 
+```text
 Daily_Tea/
 │
 ├── daily_tea/
@@ -424,32 +454,35 @@ Daily_Tea/
 ├── requirements.txt
 ├── .env.example
 └── README.md
+```
 
 ## Testing
 
 The application includes automated tests for:
 
-User registration
-Role assignment
-Duplicate email validation
-Article creation
-Article editing
-Article deletion
-Publisher article approval
-Independent article publishing
-Role-based permissions
-Publisher management
-Reader subscriptions
-Subscriber article filtering
-REST API authentication
-REST API permissions
-Newsletter functionality
-Subscriber notifications
-Internal API integration
+- User registration
+- Role assignment
+- Duplicate email validation
+- Article creation
+- Article editing
+- Article deletion
+- Publisher article approval
+- Independent article publishing
+- Role-based permissions
+- Publisher management
+- Reader subscriptions
+- Subscriber article filtering
+- REST API authentication
+- REST API permissions
+- Newsletter functionality
+- Subscriber notifications
+- Internal API integration
 
 Run all tests with:
 
+```bash
 python manage.py test
+```
 
 ## Security
 
@@ -457,14 +490,14 @@ Sensitive configuration values are stored using environment variables.
 
 The following values must not be committed to the repository:
 
-Django SECRET_KEY
-Database passwords
-DAILY_TEA_INTERNAL_API_KEY
-Other production credentials
+- Django `SECRET_KEY`
+- Database passwords
+- `DAILY_TEA_INTERNAL_API_KEY`
+- Other production credentials
 
-Use .env.example as a template for local configuration.
+Use `.env.example` as a template for local configuration.
 
-Development Notes
+## Development Notes
 
 Daily Tea uses MariaDB as its production database configuration.
 
@@ -472,6 +505,6 @@ The application uses Django's built-in authentication system together with role-
 
 Publisher-associated articles follow the editor approval workflow, while independent journalist articles can be published directly by their author.
 
-License
+## License
 
 This project was created as part of the HyperionDev Software Engineering course.
