@@ -472,6 +472,6 @@ The application uses Django's built-in authentication system together with role-
 
 Publisher-associated articles follow the editor approval workflow, while independent journalist articles can be published directly by their author.
 
-License
+## License
 
 This project was created as part of the HyperionDev Software Engineering course.
