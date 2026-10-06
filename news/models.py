@@ -27,6 +27,7 @@ class Publisher(models.Model):
     )
 
     def __str__(self):
+        """Return the publisher name as its string representation."""
         return self.name
 
 
@@ -143,6 +144,7 @@ class Article(models.Model):
             )
 
     def __str__(self):
+        """Return the article title as its string representation."""
         return self.title
 
 
@@ -167,4 +169,5 @@ class Newsletter(models.Model):
     )
 
     def __str__(self):
+        """Return the newsletter title as its string representation."""
         return self.title
