@@ -1,3 +1,5 @@
+"""Service functions for article notifications and publishing."""
+
 import requests
 
 from django.core.mail import send_mail
@@ -67,6 +69,7 @@ def notify_article_subscribers(article):
 
 
 def post_approved_article(article):
+    """Notify the internal API when an article is approved."""
     if not article.approved:
         return False
 
